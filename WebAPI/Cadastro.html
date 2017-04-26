@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+</head>
+<body>
+
+
+    <div>
+        <label for="Id">Id</label>
+        <input type="text" id="Id" name="Id" />
+    </div>
+
+    <div>
+        <label for="Nome">Nome</label>
+        <input type="text" id="Nome" name="Nome" />
+    </div>
+
+    <div>
+        <label for="Endereco">Endereco</label>
+        <input type="text" id="Endereco" name="Endereco" />
+    </div>
+
+    <div>
+        <label for="Email">Email</label>
+        <input type="text" id="Email" name="Email" />
+    </div>
+
+    <div>
+        <label for="Nascimento">Nascimento</label>
+        <input type="datetime" id="Nascimento" name="Nascimento" />
+    </div>
+
+    <div>
+        <label for="Peso">Peso</label>
+        <input type="number" id="Peso" name="Peso" />
+    </div>
+
+
+
+    <script type="text/javascript" src="/js/jquery-3.2.0.min.js"></script>
+
+    <script type="text/javascript">
+
+        txtId = document.getElementById("Id");
+        txtNome = document.getElementById("Nome");
+        txtEndeeco = document.getElementById("Endereco");
+        txtEmail = document.getElementById("Email");
+        txtNascimento = document.getElementById("Nascimento");
+        txtPeso = document.getElementById("Peso");
+
+
+
+        btnCriarFixo.onclick = function () {
+            if ($.active) {
+                // Ainda existe outra requisição em andamento...
+                // Nós poderíamos iniciar outra requisição simultânea,
+                // mas por integridade, iremos apenas ignorar o clique
+                return;
+            }
+
+            // Nesse exemplo, vamos enviar o objeto abaixo para o servidor (veja o código do método Criar()
+            // para mais informações)
+            var cliente = {
+                Id: txtId.value,
+                Nome: txtNome.value,
+                Endereco: txtEndereco.value,
+                Email: txtEmail.value,
+                Nascimento: txtNascimento.value,
+                Peso: txtPeso.value
+            };
+
+
+        }
+    
+   </script>
+</body>
+</html>
