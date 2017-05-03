@@ -37,22 +37,27 @@
         <input type="number" id="Peso" name="Peso" />
     </div>
 
+    <div>
+        <button type="button" id="btnCriar">Criar</button>
+    </div>
+
 
 
     <script type="text/javascript" src="/js/jquery-3.2.0.min.js"></script>
 
     <script type="text/javascript">
 
-        txtId = document.getElementById("Id");
-        txtNome = document.getElementById("Nome");
-        txtEndeeco = document.getElementById("Endereco");
-        txtEmail = document.getElementById("Email");
-        txtNascimento = document.getElementById("Nascimento");
-        txtPeso = document.getElementById("Peso");
+        var txtId = document.getElementById("Id");
+        var txtNome = document.getElementById("Nome");
+        var txtEndereco = document.getElementById("Endereco");
+        var txtEmail = document.getElementById("Email");
+        var txtNascimento = document.getElementById("Nascimento");
+        var txtPeso = document.getElementById("Peso");
+        var btnCriar = document.getElementById("btnCriar");
 
 
 
-        btnCriarFixo.onclick = function () {
+        btnCriar.onclick = function () {
             if ($.active) {
                 // Ainda existe outra requisição em andamento...
                 // Nós poderíamos iniciar outra requisição simultânea,
@@ -71,7 +76,20 @@
                 Peso: txtPeso.value
             };
 
-
+            $.ajax({
+                url: "/api/Cliente/Criar",
+                method: "POST",
+                cache: false,
+                dataType: "json",
+                contentType: "application/json", // ****DIFERENÇA****
+                data: JSON.stringify(cliente), // ****DIFERENÇA****
+                success: function (data) {
+                    alert("Seu Cadastro foi feito com Sucesso!");
+                },
+                error: function (xhr) {
+                    tratarExcecao(xhr);
+                }
+            });
         }
     
    </script>

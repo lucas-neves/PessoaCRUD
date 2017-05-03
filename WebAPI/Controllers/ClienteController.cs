@@ -5,6 +5,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using WebAPI.Models;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace WebAPI.Controllers
 {
@@ -14,35 +16,55 @@ namespace WebAPI.Controllers
         [HttpPost]
         public void Criar([FromBody] Cliente cliente)
         {
-            if (string.IsNullOrWhiteSpace(cliente.Nome))
+            using (SqlConnection conn = new SqlConnection("Server=tcp:programacaoweb.database.windows.net,1433;Database=programacaoweb;User ID=alunos@programacaoweb;Password=web1234$;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"))
             {
-                throw new ArgumentException("Nome em branco");
+                conn.Open();
+
+                // Cria um comando para inserir um novo registro à tabela
+                using (SqlCommand cmd = new SqlCommand("INSERT INTO tbPessoa (Nome, Endereco, Email, Nascimento, Peso) VALUES (@nome, @endereco, @email, @nascimento, @peso)", conn))
+                {
+                    // Esses valores poderiam vir de qualquer outro lugar, como uma TextBox...
+                    cmd.Parameters.AddWithValue("@nome", cliente.Nome);
+                    cmd.Parameters.AddWithValue("@endereco", cliente.Endereco);
+                    cmd.Parameters.AddWithValue("@email", cliente.Email);
+                    cmd.Parameters.AddWithValue("@nascimento", cliente.Nascimento);
+                    cmd.Parameters.AddWithValue("@peso", cliente.Peso);
+
+                    cmd.ExecuteNonQuery();
+                }
             }
 
-            if (string.IsNullOrWhiteSpace(cliente.Endereco))
-            {
-                throw new ArgumentException("Endereco em branco");
-            }
 
-            if (string.IsNullOrWhiteSpace(cliente.Email))
-            {
-                throw new ArgumentException("Email em branco");
-            }
+            /*  if (string.IsNullOrWhiteSpace(cliente.Nome))
+              {
+                  throw new ArgumentException("Nome em branco");
+              }
 
-            if (cliente.Nascimento == null)
-            {
-                throw new ArgumentException("Data em branco");
-            }
+              if (string.IsNullOrWhiteSpace(cliente.Endereco))
+              {
+                  throw new ArgumentException("Endereco em branco");
+              }
 
-            if (cliente.Peso <= 0.0)
-            {
-                throw new ArgumentException("Peso inválido");
-            }
+              if (string.IsNullOrWhiteSpace(cliente.Email))
+              {
+                  throw new ArgumentException("Email em branco");
+              }
 
-            // Cria o registro no banco de dados
+              if (cliente.Nascimento == null)
+              {
+                  throw new ArgumentException("Data em branco");
+              }
+
+              if (cliente.Peso <= 0.0)
+              {
+                  throw new ArgumentException("Peso inválido");
+              }
+
+              // Cria o registro no banco de dados
+              */
         }
 
-
+        /*
         public void Excluir(int id)
         {
             
@@ -80,6 +102,7 @@ namespace WebAPI.Controllers
 
             return clientes;
         }
+        */
 
     }
 }
