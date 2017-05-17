@@ -84,11 +84,7 @@
                 contentType: "application/json", // ****DIFERENÇA****
                 data: JSON.stringify(cliente), // ****DIFERENÇA****
                 success: function (data) {
-                    if (!data) {
-                        alert("Seu Cadastro foi feito com Sucesso!"); 
-                    } else {
-                        alert("Nome da pessoa encontrada: " + data.Nome);
-                    }                    
+                    alert("Seu Cadastro foi feito com Sucesso!");
                 },
                 error: function (xhr) {
                     tratarExcecao(xhr);

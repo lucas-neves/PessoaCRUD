@@ -16,6 +16,31 @@ namespace WebAPI.Controllers
         [HttpPost]
         public void Criar([FromBody] Cliente cliente)
         {
+            if (string.IsNullOrWhiteSpace(cliente.Nome))
+            {
+                throw new ArgumentException("Nome em branco");
+            }
+
+            if (string.IsNullOrWhiteSpace(cliente.Endereco))
+            {
+                throw new ArgumentException("Endereco em branco");
+            }
+
+            if (string.IsNullOrWhiteSpace(cliente.Email))
+            {
+                throw new ArgumentException("Email em branco");
+            }
+
+            if (cliente.Nascimento == null)
+            {
+                throw new ArgumentException("Data em branco");
+            }
+
+            if (cliente.Peso <= 0.0)
+            {
+                throw new ArgumentException("Peso inválido");
+            }
+
             using (SqlConnection conn = new SqlConnection("Server=tcp:programacaoweb.database.windows.net,1433;Database=programacaoweb;User ID=alunos@programacaoweb;Password=web1234$;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"))
             {
                 conn.Open();
@@ -32,36 +57,8 @@ namespace WebAPI.Controllers
 
                     cmd.ExecuteNonQuery();
                 }
-            }
-
-
-            /*  if (string.IsNullOrWhiteSpace(cliente.Nome))
-              {
-                  throw new ArgumentException("Nome em branco");
-              }
-
-              if (string.IsNullOrWhiteSpace(cliente.Endereco))
-              {
-                  throw new ArgumentException("Endereco em branco");
-              }
-
-              if (string.IsNullOrWhiteSpace(cliente.Email))
-              {
-                  throw new ArgumentException("Email em branco");
-              }
-
-              if (cliente.Nascimento == null)
-              {
-                  throw new ArgumentException("Data em branco");
-              }
-
-              if (cliente.Peso <= 0.0)
-              {
-                  throw new ArgumentException("Peso inválido");
-              }
-
-              // Cria o registro no banco de dados
-              */
+            }             
+              
         }
 
         /*

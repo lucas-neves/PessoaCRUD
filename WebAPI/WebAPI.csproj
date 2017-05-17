@@ -81,6 +81,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Cadastro - Copy.html" />
     <Content Include="Cadastro.html" />
     <Content Include="Default.html" />
     <Content Include="Global.asax" />
